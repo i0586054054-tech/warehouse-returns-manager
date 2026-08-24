@@ -1,4 +1,30 @@
 {
   "version": 1,
-  "products": []
+  "products": [
+    {
+      "barcode": "7290116534459",
+      "name": "קליק קטן",
+      "company": "יוניליוור",
+      "quantity": 10,
+      "editable_name": true,
+      "source": "user_confirmed_image",
+      "notes": "אפשר לעדכן כמות מצטברת בהמשך לפי אותו ברקוד"
+    },
+    {
+      "barcode": "7290116537016",
+      "name": "שוקולד שלישיה",
+      "company": "יוניליוור",
+      "quantity": 1,
+      "editable_name": true,
+      "source": "user_confirmed_image"
+    },
+    {
+      "barcode": "7290116534763",
+      "name": "שמפו קטן",
+      "company": "יוניליוור",
+      "quantity": 1,
+      "editable_name": true,
+      "source": "user_confirmed_image"
+    }
+  ]
 }
