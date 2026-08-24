@@ -1,11 +1,25 @@
 import { createClient } from '@supabase/supabase-js'
 import fs from 'node:fs/promises'
 
-const url = process.env.SUPABASE_URL
-const key = process.env.SUPABASE_SERVICE_ROLE_KEY
-if (!url || !key) throw new Error('Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY')
+const rawUrl = String(process.env.SUPABASE_URL || '').trim()
+const key = String(process.env.SUPABASE_SERVICE_ROLE_KEY || '').trim()
+if (!rawUrl || !key) throw new Error('Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY')
 
-const supabase = createClient(url, key, { auth: { persistSession: false } })
+// Accept either the plain project URL or an accidentally copied REST endpoint.
+// supabase-js expects only https://<project-ref>.supabase.co
+const url = rawUrl
+  .replace(/\/+$/, '')
+  .replace(/\/rest\/v1$/i, '')
+  .replace(/\/rest$/i, '')
+
+if (!/^https:\/\/[a-z0-9.-]+\.supabase\.co$/i.test(url)) {
+  throw new Error(`SUPABASE_URL must be the project URL only (https://<project-ref>.supabase.co). Received an invalid value.`)
+}
+
+const supabase = createClient(url, key, {
+  auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false },
+  realtime: { params: { eventsPerSecond: 1 } }
+})
 const data = JSON.parse(await fs.readFile('data/product_learning.json', 'utf8'))
 
 for (const item of data.products || []) {
