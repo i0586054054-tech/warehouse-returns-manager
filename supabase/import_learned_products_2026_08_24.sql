@@ -53,7 +53,7 @@ begin
            qty = r.qty,
            supplier = 'יוניליוור',
            company_id = v_company_id,
-           treatment_type = case when v_return_method = 'agent' then 'agent' when v_return_method = 'none' then 'whatsapp' else 'whatsapp' end,
+           treatment_type = (case when v_return_method = 'agent' then 'agent' else 'whatsapp' end)::public.treatment_type,
            agent_id = case when v_return_method = 'agent' then v_agent_id else null end,
            status = v_status,
            notes = coalesce(notes, 'נקלט ממאגר הלמידה')
@@ -69,7 +69,7 @@ begin
         r.qty,
         'יוניליוור',
         v_company_id,
-        case when v_return_method = 'agent' then 'agent' else 'whatsapp' end,
+        (case when v_return_method = 'agent' then 'agent' else 'whatsapp' end)::public.treatment_type,
         case when v_return_method = 'agent' then v_agent_id else null end,
         v_status,
         'נקלט ממאגר הלמידה'
