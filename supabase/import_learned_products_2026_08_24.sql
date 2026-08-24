@@ -6,7 +6,7 @@ declare
   v_company_id uuid;
   v_return_method text;
   v_agent_id uuid;
-  v_status text;
+  v_status public.product_status;
   r record;
 begin
   select id, return_method
@@ -26,11 +26,11 @@ begin
     where company_id = v_company_id
     order by name
     limit 1;
-    v_status := 'waiting_agent';
+    v_status := 'waiting_agent'::public.product_status;
   elsif v_return_method = 'none' then
-    v_status := 'approved';
+    v_status := 'approved'::public.product_status;
   else
-    v_status := 'pending_whatsapp';
+    v_status := 'pending_whatsapp'::public.product_status;
   end if;
 
   for r in
@@ -58,7 +58,7 @@ begin
            status = v_status,
            notes = coalesce(notes, 'נקלט ממאגר הלמידה')
      where sku = r.barcode
-       and status not in ('completed','collected');
+       and status not in ('completed'::public.product_status,'collected'::public.product_status);
 
     if not found then
       insert into public.products(
