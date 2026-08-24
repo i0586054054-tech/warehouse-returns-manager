@@ -25,6 +25,23 @@
       "quantity": 1,
       "editable_name": true,
       "source": "user_confirmed_image"
+    },
+    {
+      "barcode": "7290112961418",
+      "name": "תפוצ׳יפס גדול",
+      "company": "שטראוס מלוחים",
+      "quantity": 1,
+      "editable_name": true,
+      "source": "user_confirmed_image"
+    },
+    {
+      "barcode": "7290104225247",
+      "name": "תפוצ׳יפס ענק",
+      "company": "שטראוס מלוחים",
+      "quantity": 1,
+      "editable_name": true,
+      "source": "user_confirmed_image",
+      "notes": "הפריט שהברקוד שלו מסתיים ב-47"
     }
   ]
 }
