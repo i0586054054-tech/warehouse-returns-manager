@@ -6,6 +6,7 @@
       "name": "קליק קטן",
       "company": "יוניליוור",
       "quantity": 10,
+      "sync_revision": 1,
       "editable_name": true,
       "source": "user_confirmed_image",
       "notes": "אפשר לעדכן כמות מצטברת בהמשך לפי אותו ברקוד"
@@ -15,6 +16,7 @@
       "name": "שוקולד שלישיה",
       "company": "יוניליוור",
       "quantity": 1,
+      "sync_revision": 1,
       "editable_name": true,
       "source": "user_confirmed_image"
     },
@@ -23,6 +25,7 @@
       "name": "שמפו קטן",
       "company": "יוניליוור",
       "quantity": 1,
+      "sync_revision": 1,
       "editable_name": true,
       "source": "user_confirmed_image"
     },
@@ -31,6 +34,7 @@
       "name": "תפוצ׳יפס גדול",
       "company": "שטראוס מלוחים",
       "quantity": 1,
+      "sync_revision": 1,
       "editable_name": true,
       "source": "user_confirmed_image"
     },
@@ -39,6 +43,7 @@
       "name": "תפוצ׳יפס ענק",
       "company": "שטראוס מלוחים",
       "quantity": 1,
+      "sync_revision": 1,
       "editable_name": true,
       "source": "user_confirmed_image",
       "notes": "הפריט שהברקוד שלו מסתיים ב-47"
