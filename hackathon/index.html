@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Venture Night — From Zero to MVP</title>
+  <meta name="description" content="האקתון יזמות ו־AI: לילה אחד, צוות אחד, מוצר שעובד. 26.11.26 | BizLabs × DDoS Community" />
+  <meta name="theme-color" content="#07081a" />
+  <meta property="og:title" content="AI Venture Night — From Zero to MVP" />
+  <meta property="og:description" content="לילה אחד. צוות אחד. מוצר שעובד. 26.11.26" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&family=Rubik:wght@300;400;500;600;700&family=Ubuntu:ital,wght@1,300;1,400;1,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <!-- Background ornaments -->
+  <div class="bg" aria-hidden="true">
+    <div class="bg__glow bg__glow--a"></div>
+    <div class="bg__glow bg__glow--b"></div>
+    <div class="bg__orbit bg__orbit--a"></div>
+    <div class="bg__orbit bg__orbit--b"></div>
+    <div class="bg__grain"></div>
+  </div>
+
+  <header class="nav" id="nav">
+    <div class="nav__inner container">
+      <a href="#top" class="nav__brand" dir="ltr">
+        <span class="nav__dot"></span>AI Venture Night
+      </a>
+      <nav class="nav__links" id="navLinks" aria-label="ניווט ראשי">
+        <a href="#tracks">המסלולים</a>
+        <a href="#how">איך זה עובד</a>
+        <a href="#outcomes">מה יוצא מהלילה</a>
+        <a href="#about">מי אנחנו</a>
+        <a href="#partners">שותפים</a>
+        <a href="#contact">צור קשר</a>
+      </nav>
+      <button class="btn btn--sm btn--primary nav__cta" data-apply>להגשת מועמדות</button>
+      <button class="nav__burger" id="burger" aria-label="פתיחת תפריט" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- ============ 1. HERO ============ -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero__poster" dir="ltr">
+          <p class="eyebrow eyebrow--underline reveal">Save the Date</p>
+          <h1 class="hero__title reveal" style="--d:.08s">AI Venture<br />Night</h1>
+          <div class="flare reveal" style="--d:.2s" aria-hidden="true"><span class="flare__spark"></span></div>
+          <p class="hero__sub reveal" style="--d:.3s">From zero<br />to MVP</p>
+        </div>
+
+        <div class="hero__grid">
+          <div class="hero__copy">
+            <p class="hero__tagline reveal">לילה אחד. צוות אחד. <span class="grad-text">מוצר שעובד.</span></p>
+            <p class="lead reveal" style="--d:.08s">
+              האקתון יזמות ו־AI בפורמט חדשני: מתחילים מבעיה אמיתית, מחברים סביבה אנשי טכנולוגיה, מוצר ועסקים —
+              ובונים יחד MVP שאפשר להציג כבר בבוקר.
+            </p>
+            <p class="muted reveal" style="--d:.14s">
+              הצוותים מתחילים להתגבש ולהתכונן עוד לפני האירוע, ומגיעים ללילה מוכנים לבנות.
+            </p>
+            <div class="hero__actions reveal" style="--d:.2s">
+              <button class="btn btn--primary" data-apply>להגשת מועמדות <span class="btn__arrow" aria-hidden="true">←</span></button>
+              <a href="#tracks" class="btn btn--ghost">איזה מסלול מתאים לי?</a>
+            </div>
+          </div>
+
+          <aside class="hero__card glass reveal" style="--d:.25s" aria-label="פרטי האירוע">
+            <div class="hero__date" dir="ltr">26.11.26</div>
+            <div class="hero__when">חמישי בערב עד שישי בבוקר</div>
+            <div class="countdown" id="countdown" dir="ltr" aria-live="polite">
+              <div><b data-cd="d">--</b><span>days</span></div>
+              <div><b data-cd="h">--</b><span>hrs</span></div>
+              <div><b data-cd="m">--</b><span>min</span></div>
+              <div><b data-cd="s">--</b><span>sec</span></div>
+            </div>
+            <div class="hero__by mono" dir="ltr">BizLabs <span class="x">×</span> DDoS Community</div>
+          </aside>
+        </div>
+
+        <ul class="facts reveal">
+          <li><span class="mono facts__k">FORMAT</span><span>לילה אחד של בנייה, אחרי מפגשי הכנה</span></li>
+          <li><span class="mono facts__k">GOAL</span><span>MVP עובד ו־Pitch על הבמה בבוקר</span></li>
+          <li><span class="mono facts__k">WHO</span><span>טכנולוגיה · בעלי בעיה · אנשי מקצוע</span></li>
+          <li><span class="mono facts__k">WHEN</span><span dir="ltr">26.11.26 · Thu → Fri</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ 2. TRACK PICKER ============ -->
+    <section class="section" id="tracks">
+      <div class="container">
+        <header class="section__head">
+          <p class="eyebrow reveal" dir="ltr">01 — Choose your track</p>
+          <h2 class="h2 reveal">איפה אתם נכנסים?</h2>
+          <p class="lead reveal">"מה ה־<span dir="ltr">Superpower</span> שלך בלילה?"</p>
+        </header>
+
+        <div class="picker">
+          <a href="#track-tech" class="pick glass reveal" data-track-link="tech">
+            <span class="pick__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M13.5 4l-3 16"/></svg>
+            </span>
+            <span class="pick__kicker mono">TECH</span>
+            <h3 class="pick__title">אני איש טכנולוגיה</h3>
+            <p class="pick__sub">אני רוצה לבנות</p>
+            <p class="pick__text">מפתחים, אנשי AI, Data, DevOps ואנשי טכנולוגיה שרוצים לקחת בעיה אמיתית ולהפוך אותה למוצר עובד.</p>
+            <span class="pick__cta">למסלול הטכנולוגי <span aria-hidden="true">←</span></span>
+          </a>
+
+          <a href="#track-problem" class="pick glass reveal" style="--d:.08s" data-track-link="problem">
+            <span class="pick__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg>
+            </span>
+            <span class="pick__kicker mono">CHALLENGE</span>
+            <h3 class="pick__title">יש לי בעיה ששווה לפתור</h3>
+            <p class="pick__sub">אני רוצה להביא את האתגר</p>
+            <p class="pick__text">בעלי עסקים, יזמים ומומחי תוכן שמכירים צורך אמיתי מהשטח ורוצים להפוך אותו למוצר.</p>
+            <span class="pick__cta">להגשת בעיה <span aria-hidden="true">←</span></span>
+          </a>
+
+          <a href="#track-pro" class="pick glass reveal" style="--d:.16s" data-track-link="pro">
+            <span class="pick__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="8.5"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3"/></svg>
+            </span>
+            <span class="pick__kicker mono">EXPERTISE</span>
+            <h3 class="pick__title">יש לי מומחיות שיכולה לקדם מוצר</h3>
+            <p class="pick__sub">אני רוצה להצטרף לצוות</p>
+            <p class="pick__text">אנשי Product, UX/UI, שיווק, ביזנס, פיננסים ומשפטים שרוצים להיות חלק מצוות שבונה מוצר מאפס.</p>
+            <span class="pick__cta">להצטרפות לצוות <span aria-hidden="true">←</span></span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 3. TECH TRACK ============ -->
+    <section class="section track" id="track-tech" data-track="tech">
+      <div class="container track__grid">
+        <div class="track__label reveal">
+          <span class="track__num mono" dir="ltr">02</span>
+          <span class="mono">Tech Track</span>
+        </div>
+        <div class="track__body">
+          <h2 class="h2 reveal">אתם יודעים לבנות.<br /><span class="grad-text">עכשיו בואו לבנות משהו אמיתי.</span></h2>
+          <p class="lead reveal">תקבלו בעיה אמיתית וצוות שמכיר אותה לעומק.</p>
+          <div class="steps-inline">
+            <div class="reveal"><span class="mono">BEFORE</span><p>כבר במפגשי ההכנה תכירו את האתגר, תגדירו יחד את יעד ה־MVP ותגיעו ללילה מוכנים לעבוד.</p></div>
+            <div class="reveal" style="--d:.08s"><span class="mono">THE NIGHT</span><p>תובילו את הבנייה עם כלי AI, אנשי מוצר ומנטורים מקצועיים — עד לדמו שעובד בבוקר.</p></div>
+          </div>
+          <p class="muted reveal">מתאים ל:</p>
+          <ul class="chips reveal" dir="ltr">
+            <li>Backend</li><li>Frontend</li><li>Full Stack</li><li>AI</li><li>Data</li><li>DevOps</li><li>+ more</li>
+          </ul>
+          <button class="btn btn--primary reveal" data-apply="tech">אני רוצה לבנות <span class="btn__arrow" aria-hidden="true">←</span></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 4. PROBLEM OWNERS ============ -->
+    <section class="section track" id="track-problem" data-track="problem">
+      <div class="container track__grid">
+        <div class="track__label reveal">
+          <span class="track__num mono" dir="ltr">03</span>
+          <span class="mono">Challenge Track</span>
+        </div>
+        <div class="track__body">
+          <h2 class="h2 reveal">אתם מכירים את הבעיה.<br /><span class="grad-text">יחד נהפוך אותה למוצר.</span></h2>
+          <ul class="questions">
+            <li class="reveal">יש לכם צורך שחוזר שוב ושוב?</li>
+            <li class="reveal" style="--d:.06s">תהליך שאפשר לעשות טוב יותר?</li>
+            <li class="reveal" style="--d:.12s">בעיה שאתם מכירים מהשטח ויש לה פוטנציאל לפתרון טכנולוגי?</li>
+          </ul>
+          <p class="lead reveal">הבעיות שייבחרו יעברו תהליך זיקוק והכנה, וייבנה סביבן צוות של אנשי טכנולוגיה, מוצר ועסקים.</p>
+          <div class="split reveal">
+            <div><span class="mono">YOU BRING</span><p>את הידע וההיכרות עם השוק.</p></div>
+            <div><span class="mono">TOGETHER</span><p>בונים את הפתרון.</p></div>
+          </div>
+          <button class="btn btn--primary reveal" data-apply="problem">יש לי בעיה להגיש <span class="btn__arrow" aria-hidden="true">←</span></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 5. PROFESSIONALS ============ -->
+    <section class="section track" id="track-pro" data-track="pro">
+      <div class="container track__grid">
+        <div class="track__label reveal">
+          <span class="track__num mono" dir="ltr">04</span>
+          <span class="mono">Expert Track</span>
+        </div>
+        <div class="track__body">
+          <h2 class="h2 reveal">מוצר טוב נבנה<br /><span class="grad-text">מכמה זוויות במקביל.</span></h2>
+          <p class="lead reveal">אנחנו מחפשים אנשי:</p>
+          <div class="roles">
+            <article class="role glass reveal"><h3 dir="ltr">Product</h3><p>להגדיר מה באמת צריך לבנות.</p></article>
+            <article class="role glass reveal" style="--d:.05s"><h3 dir="ltr">UX/UI</h3><p>להפוך את הפתרון למוצר ברור ונוח.</p></article>
+            <article class="role glass reveal" style="--d:.1s"><h3>שיווק ו־<span dir="ltr">Go To Market</span></h3><p>לחדד קהל, ערך ודרך לשוק.</p></article>
+            <article class="role glass reveal" style="--d:.15s"><h3>ביזנס ופיננסים</h3><p>לבחון מודל עסקי וכלכליות.</p></article>
+            <article class="role glass reveal" style="--d:.2s"><h3>משפטים</h3><p>לתת מענה לסוגיות משפטיות, הסכמות ורגולציה.</p></article>
+          </div>
+          <p class="lead reveal">אתם מצטרפים לצוות ועובדים יחד עם בעלי הבעיה ואנשי הטכנולוגיה על מוצר אחד.</p>
+          <button class="btn btn--primary reveal" data-apply="pro">אני רוצה להצטרף לצוות <span class="btn__arrow" aria-hidden="true">←</span></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 6. HOW IT WORKS ============ -->
+    <section class="section" id="how">
+      <div class="container">
+        <header class="section__head">
+          <p class="eyebrow reveal" dir="ltr">05 — From Zero to MVP</p>
+          <h2 class="h2 reveal">איך זה עובד?</h2>
+        </header>
+        <ol class="timeline" id="timeline">
+          <span class="timeline__rail" aria-hidden="true"><span class="timeline__fill"></span></span>
+          <li class="tl reveal"><span class="tl__n mono">01</span><h3>בוחרים בעיות</h3><p>בעיות אמיתיות עם פוטנציאל למוצר טכנולוגי.</p></li>
+          <li class="tl reveal" style="--d:.06s"><span class="tl__n mono">02</span><h3>מרכיבים צוותים</h3><p>טכנולוגיה, מוצר ועסקים סביב אותו אתגר.</p></li>
+          <li class="tl reveal" style="--d:.12s"><span class="tl__n mono">03</span><h3>נפגשים ומתכוננים</h3><p>מחדדים את הבעיה, מכירים את המשתמש, מגדירים את ה־MVP ומחלקים תפקידים.</p></li>
+          <li class="tl reveal" style="--d:.18s"><span class="tl__n mono">04</span><h3>בונים בלילה</h3><p>ספרינטים של עבודה, AI, מנטורים והמון ביצוע.</p></li>
+          <li class="tl reveal" style="--d:.24s"><span class="tl__n mono">05</span><h3>עולים לבמה</h3><p>בבוקר מציגים MVP ו־Pitch מול פאנל מהתעשייה ומעולם היזמות.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ 7. OUTCOMES ============ -->
+    <section class="section" id="outcomes">
+      <div class="container">
+        <header class="section__head">
+          <p class="eyebrow reveal" dir="ltr">06 — Demo Day</p>
+          <h2 class="h2 reveal">בבוקר יש מה להראות.</h2>
+          <p class="lead reveal">כל צוות מגיע ל־<span dir="ltr">Demo Day</span> עם:</p>
+        </header>
+        <div class="bento">
+          <article class="tile tile--wide glass reveal">
+            <span class="tile__k mono">01</span>
+            <h3 class="tile__big"><span dir="ltr">MVP</span> <span class="grad-text">עובד</span></h3>
+            <p>מוצר ראשוני שאפשר להדגים.</p>
+          </article>
+          <article class="tile glass reveal" style="--d:.06s"><span class="tile__k mono">02</span><h3>בעיה וקהל יעד ברורים</h3><p>למי המוצר מיועד ומה הוא פותר.</p></article>
+          <article class="tile glass reveal" style="--d:.12s"><span class="tile__k mono">03</span><h3>שימוש משמעותי ב־<span dir="ltr">AI</span></h3><p>בתהליך העבודה, במוצר או בשניהם.</p></article>
+          <article class="tile glass reveal" style="--d:.18s"><span class="tile__k mono">04</span><h3>כיוון עסקי ראשוני</h3><p>הצעת ערך ודרך אפשרית לשוק.</p></article>
+          <article class="tile glass reveal" style="--d:.24s"><span class="tile__k mono">05</span><h3 dir="ltr">Pitch</h3><p>סיפור קצר וברור שמחבר בין הבעיה, המוצר וההזדמנות.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 8. ABOUT ============ -->
+    <section class="section" id="about">
+      <div class="container">
+        <header class="section__head">
+          <p class="eyebrow reveal" dir="ltr">07 — Who we are</p>
+          <h2 class="h2 reveal">מי אנחנו?</h2>
+          <p class="lead mono reveal" dir="ltr">BizLabs × DDoS Community</p>
+        </header>
+        <div class="about">
+          <article class="org glass reveal">
+            <h3 class="org__name" dir="ltr">BizLabs</h3>
+            <p class="org__tag">הבית ליזמות טכנולוגית חרדית מבית <span dir="ltr">Bizmax</span>.</p>
+            <p>BizLabs מלווה יזמים משלב הרעיון, דרך בניית מוצר ומודל עסקי ועד תוכניות האצה וחיבור לאקוסיסטם ולמשקיעים.</p>
+          </article>
+          <div class="about__x reveal" aria-hidden="true">×</div>
+          <article class="org glass reveal" style="--d:.08s">
+            <h3 class="org__name" dir="ltr">DDoS Community</h3>
+            <p class="org__tag">הקהילה המקצועית של אנשי ההייטק החרדים.</p>
+            <p>DDoS מחברת אנשי פיתוח, AI, Data, DevOps ומוצר, ומביאה לאירוע את הידע והיכולות הטכנולוגיות שמאפשרות להפוך רעיון למוצר עובד.</p>
+          </article>
+        </div>
+        <div class="together reveal">
+          <span class="mono">TOGETHER</span>
+          <p>מחברים סביב אותו שולחן את מי שמכיר את הבעיה, מי שיודע לבנות ומי שיודע לקחת מוצר קדימה.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 9. PARTNERS ============ -->
+    <section class="section" id="partners">
+      <div class="container">
+        <header class="section__head">
+          <p class="eyebrow reveal" dir="ltr">08 — Partners</p>
+          <h2 class="h2 reveal">שותפים לדרך</h2>
+        </header>
+        <div class="partners">
+          <div class="pgroup reveal"><h3 class="pgroup__t">שותפי <span dir="ltr">Bizmax</span></h3><div class="logos"><span class="logo-slot"></span><span class="logo-slot"></span><span class="logo-slot"></span></div></div>
+          <div class="pgroup reveal" style="--d:.06s"><h3 class="pgroup__t">החברה המארחת</h3><div class="logos"><span class="logo-slot"></span></div></div>
+          <div class="pgroup reveal" style="--d:.12s"><h3 class="pgroup__t">נותני חסות</h3><div class="logos"><span class="logo-slot"></span><span class="logo-slot"></span><span class="logo-slot"></span></div></div>
+          <div class="pgroup reveal" style="--d:.18s"><h3 class="pgroup__t">שותפים מקצועיים</h3><div class="logos"><span class="logo-slot"></span><span class="logo-slot"></span><span class="logo-slot"></span></div></div>
+        </div>
+        <p class="muted small reveal">רשימת השותפים תתעדכן בקרוב.</p>
+      </div>
+    </section>
+
+    <!-- ============ 10. CTA / CONTACT ============ -->
+    <section class="section cta" id="contact">
+      <div class="container">
+        <div class="cta__box glass">
+          <div class="cta__copy">
+            <p class="eyebrow reveal" dir="ltr">09 — Your seat</p>
+            <h2 class="h2 reveal">יש לכם מקום<br /><span class="grad-text">סביב השולחן.</span></h2>
+            <p class="lead reveal">אם אתם יודעים לבנות, מכירים בעיה ששווה לפתור או מחזיקים במומחיות שיכולה לקדם מוצר — אנחנו רוצים להכיר אתכם.</p>
+            <div class="cta__event reveal" dir="ltr">
+              <div class="cta__name">AI Venture Night</div>
+              <div class="cta__sub">From Zero to MVP</div>
+              <div class="flare flare--sm" aria-hidden="true"><span class="flare__spark"></span></div>
+              <div class="mono cta__date">26.11.26 <span class="muted">|</span> <span dir="rtl">חמישי בערב עד שישי בבוקר</span></div>
+            </div>
+            <button class="btn btn--primary reveal" data-apply>להגשת מועמדות <span class="btn__arrow" aria-hidden="true">←</span></button>
+          </div>
+
+          <form class="form reveal" id="leadForm" novalidate data-kind="lead">
+            <h3 class="form__title">עדיין לא בטוחים איזה מסלול מתאים לכם?</h3>
+            <p class="muted">השאירו פרטים ונחזור אליכם.</p>
+            <label class="field"><span>שם מלא</span><input name="name" type="text" autocomplete="name" required /></label>
+            <label class="field"><span>טלפון</span><input name="phone" type="tel" autocomplete="tel" inputmode="tel" dir="ltr" required /></label>
+            <label class="field"><span>מייל</span><input name="email" type="email" autocomplete="email" dir="ltr" required /></label>
+            <label class="field"><span>תחום עיסוק</span><input name="occupation" type="text" required /></label>
+            <button class="btn btn--primary btn--block" type="submit">שליחה</button>
+            <p class="form__msg" role="status"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span class="mono" dir="ltr">AI Venture Night · From Zero to MVP · 26.11.26</span>
+      <span class="mono" dir="ltr">BizLabs × DDoS Community</span>
+    </div>
+  </footer>
+
+  <!-- ============ APPLICATION MODAL ============ -->
+  <div class="modal" id="applyModal" aria-hidden="true">
+    <div class="modal__backdrop" data-close></div>
+    <div class="modal__panel glass" role="dialog" aria-modal="true" aria-labelledby="applyTitle">
+      <button class="modal__close" data-close aria-label="סגירה">×</button>
+      <p class="eyebrow" dir="ltr">Application</p>
+      <h2 class="modal__title" id="applyTitle">הגשת מועמדות</h2>
+
+      <form class="form" id="applyForm" novalidate data-kind="application">
+        <fieldset class="seg" aria-label="בחירת מסלול">
+          <label><input type="radio" name="track" value="tech" /><span>איש טכנולוגיה</span></label>
+          <label><input type="radio" name="track" value="problem" /><span>בעל בעיה</span></label>
+          <label><input type="radio" name="track" value="pro" /><span>איש מקצוע</span></label>
+        </fieldset>
+
+        <div class="form__row">
+          <label class="field"><span>שם מלא</span><input name="name" type="text" autocomplete="name" required /></label>
+          <label class="field"><span>טלפון</span><input name="phone" type="tel" autocomplete="tel" inputmode="tel" dir="ltr" required /></label>
+        </div>
+        <label class="field"><span>מייל</span><input name="email" type="email" autocomplete="email" dir="ltr" required /></label>
+
+        <div class="cond" data-for="tech">
+          <label class="field"><span>תחום עיקרי</span>
+            <select name="tech_role">
+              <option value="">בחרו…</option>
+              <option>Backend</option><option>Frontend</option><option>Full Stack</option>
+              <option>AI / ML</option><option>Data</option><option>DevOps</option><option>אחר</option>
+            </select>
+          </label>
+          <label class="field"><span>קישור ל־GitHub / LinkedIn</span><input name="tech_link" type="url" dir="ltr" placeholder="https://" /></label>
+        </div>
+
+        <div class="cond" data-for="problem">
+          <label class="field"><span>עסק / ארגון</span><input name="org" type="text" /></label>
+          <label class="field"><span>מה הבעיה? (בכמה משפטים)</span><textarea name="problem" rows="4"></textarea></label>
+        </div>
+
+        <div class="cond" data-for="pro">
+          <label class="field"><span>תחום מומחיות</span>
+            <select name="pro_domain">
+              <option value="">בחרו…</option>
+              <option>Product</option><option>UX/UI</option><option>שיווק ו־Go To Market</option>
+              <option>ביזנס ופיננסים</option><option>משפטים</option>
+            </select>
+          </label>
+          <label class="field"><span>קישור ל־LinkedIn / תיק עבודות</span><input name="pro_link" type="url" dir="ltr" placeholder="https://" /></label>
+        </div>
+
+        <label class="field"><span>משהו שחשוב שנדע? <em class="muted">(לא חובה)</em></span><textarea name="notes" rows="2"></textarea></label>
+        <button class="btn btn--primary btn--block" type="submit">שליחת מועמדות</button>
+        <p class="form__msg" role="status"></p>
+      </form>
+    </div>
+  </div>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
