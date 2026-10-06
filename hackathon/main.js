@@ -76,20 +76,21 @@
   });
 
   var reveals = $$('.reveal');
-  if ('IntersectionObserver' in window && !reduceMotion) {
+  // Entrances run even when the device asks for reduced motion (requested for this site).
+  if ('IntersectionObserver' in window) {
     $$('.h2.reveal, .hero__title.reveal, .hero__sub.reveal, .hero__tagline.reveal').forEach(splitWords);
 
     // Once a box has finished entering, drop the reveal classes so its own hover transitions take over.
     function settle(el) {
       if (el.classList.contains('words') || !el.classList.contains('glass')) return;
       var d = parseFloat(getComputedStyle(el).getPropertyValue('--d')) || 0;
-      setTimeout(function () { el.classList.remove('reveal', 'is-in'); }, (d + 1.6) * 1000);
+      setTimeout(function () { el.classList.remove('reveal', 'is-in'); }, (d + 1.8) * 1000);
     }
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); settle(e.target); }
       });
-    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+    }, { threshold: 0.18, rootMargin: '0px 0px -12% 0px' });
     reveals.forEach(function (el) { io.observe(el); });
   } else {
     reveals.forEach(function (el) { el.classList.add('is-in'); });
