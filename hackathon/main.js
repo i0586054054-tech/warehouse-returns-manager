@@ -33,6 +33,7 @@
       return at(t, y1, y2);
     };
   }
+  var easyEase = bezier(0.33, 0, 0.67, 1);
   var easyEaseSoft = bezier(0.7, 0, 0.3, 1);
 
   var $ = function (s, r) { return (r || document).querySelector(s); };
@@ -153,6 +154,20 @@
       });
     });
   }
+
+  /* ---------- Flare: glow orb sweeps side to side with Easy Ease and lights the line ---------- */
+  var flares = $$('.flare');
+  var PASS = 7000; // ms per side-to-side pass
+  var sweepStart = null;
+  function sweep(now) {
+    if (sweepStart === null) sweepStart = now;
+    var k = ((now - sweepStart) % (PASS * 2)) / PASS;           // 0..2: there and back
+    var e = easyEase(k < 1 ? k : 2 - k);                       // ease in and out of each turn
+    var x = 8 + 84 * e;
+    flares.forEach(function (f) { f.style.setProperty('--glow-x', x.toFixed(2) + '%'); });
+    requestAnimationFrame(sweep);
+  }
+  if (flares.length && !reduceMotion) requestAnimationFrame(sweep);
 
   /* ---------- Countdown ---------- */
   var cd = {};

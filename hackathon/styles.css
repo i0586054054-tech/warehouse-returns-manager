@@ -165,19 +165,21 @@ button { font: inherit; color: inherit; }
 /* The signature flare line */
 .flare { position: relative; height: 2px; margin: clamp(18px, 2.4vw, 28px) 0 clamp(14px, 2vw, 22px); background: var(--flare); border-radius: 2px; box-shadow: 0 0 18px rgba(155,227,90,.25); transform-origin: left; }
 .flare::before { content: ""; position: absolute; inset: -6px 0; background: inherit; filter: blur(10px); opacity: .45; }
+/* Glow orb sweeps the line (position driven from main.js) and lights it up */
+.flare { --glow-x: 78%; }
+.flare__lit, .flare__bloom {
+  position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); pointer-events: none;
+  -webkit-mask-image: radial-gradient(ellipse 22% 50% at var(--glow-x) 50%, #000 0%, rgba(0,0,0,.5) 40%, transparent 100%);
+          mask-image: radial-gradient(ellipse 22% 50% at var(--glow-x) 50%, #000 0%, rgba(0,0,0,.5) 40%, transparent 100%);
+}
+.flare__lit { height: 3px; border-radius: 3px; background: var(--flare); filter: brightness(1.7) saturate(1.2); }
+.flare__bloom { height: 64px; background: var(--flare) center / 100% 16px no-repeat; filter: blur(14px); opacity: .8; }
 .flare__spark {
-  position: absolute; top: 50%; left: 78%; width: 120px; height: 26px; transform: translate(-50%, -50%);
+  position: absolute; top: 50%; left: var(--glow-x); width: 120px; height: 26px; transform: translate(-50%, -50%);
   background: radial-gradient(ellipse at center, #fff 0%, rgba(150,255,255,.9) 12%, rgba(99,240,255,.35) 35%, transparent 70%);
-  filter: blur(1px); mix-blend-mode: screen; animation: spark 7s var(--ease) infinite;
+  filter: blur(1px); mix-blend-mode: screen;
 }
-.flare__spark::after { content: ""; position: absolute; top: 50%; left: 50%; width: 10px; height: 10px; transform: translate(-50%, -50%); border-radius: 50%; background: #fff; box-shadow: 0 0 22px 8px rgba(99,240,255,.8); }
-@keyframes spark {
-  0%   { left: 6%;  opacity: 0; }
-  12%  { opacity: 1; }
-  60%  { left: 78%; }
-  85%  { left: 78%; opacity: 1; }
-  100% { left: 96%; opacity: 0; }
-}
+.flare__spark::after { content: ""; position: absolute; top: 50%; left: 50%; width: 10px; height: 10px; transform: translate(-50%, -50%); border-radius: 50%; background: #fff; box-shadow: 0 0 6px 2px #fff, 0 0 22px 8px rgba(99,240,255,.8); }
 .flare--sm { width: min(100%, 360px); margin: 14px 0; }
 .flare--sm .flare__spark { width: 70px; height: 18px; }
 
@@ -426,5 +428,4 @@ body.no-scroll { overflow: hidden; }
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
   html { scroll-behavior: auto; }
   .reveal, .flare.reveal { opacity: 1; transform: none; }
-  .flare__spark { left: 78%; opacity: 1; }
 }
