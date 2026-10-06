@@ -39,11 +39,55 @@
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
 
   /* ---------- Reveal on scroll ---------- */
+  // Headings are split into words so they can rise in one after another.
+  // Rich children (gradient text, LTR spans) move as a single unit; <br> stays as is.
+  function splitWords(el) {
+    var i = 0;
+    function unit(node) {
+      var w = document.createElement('span');
+      w.className = 'w';
+      w.style.setProperty('--i', i++);
+      node.parentNode.insertBefore(w, node);
+      w.appendChild(node);
+    }
+    Array.prototype.slice.call(el.childNodes).forEach(function (node) {
+      if (node.nodeType === 3) {
+        var frag = document.createDocumentFragment();
+        node.textContent.split(/(\s+)/).forEach(function (part) {
+          if (!part) return;
+          if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+          var w = document.createElement('span');
+          w.className = 'w';
+          w.style.setProperty('--i', i++);
+          w.textContent = part;
+          frag.appendChild(w);
+        });
+        node.parentNode.replaceChild(frag, node);
+      } else if (node.nodeType === 1 && node.tagName !== 'BR') {
+        unit(node);
+      }
+    });
+    el.classList.add('words');
+  }
+
+  // Stagger the items inside grouped elements
+  $$('.chips.reveal, .facts.reveal').forEach(function (group) {
+    $$(':scope > li', group).forEach(function (li, n) { li.setAttribute('data-i', ''); li.style.setProperty('--i', n); });
+  });
+
   var reveals = $$('.reveal');
   if ('IntersectionObserver' in window && !reduceMotion) {
+    $$('.h2.reveal, .hero__title.reveal, .hero__sub.reveal, .hero__tagline.reveal').forEach(splitWords);
+
+    // Once a box has finished entering, drop the reveal classes so its own hover transitions take over.
+    function settle(el) {
+      if (el.classList.contains('words') || !el.classList.contains('glass')) return;
+      var d = parseFloat(getComputedStyle(el).getPropertyValue('--d')) || 0;
+      setTimeout(function () { el.classList.remove('reveal', 'is-in'); }, (d + 1.6) * 1000);
+    }
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
-        if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+        if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); settle(e.target); }
       });
     }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
     reveals.forEach(function (el) { io.observe(el); });
