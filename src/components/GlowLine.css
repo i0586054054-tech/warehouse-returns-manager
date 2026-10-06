@@ -1,0 +1,37 @@
+/* קו גרדיאנט זוהר עם הילה שנעה מצד לצד ומאירה את הקו */
+@property --glow-x{syntax:'<percentage>';inherits:true;initial-value:50%}
+
+.glowLine{
+  --glow-gradient:linear-gradient(90deg,#f2df4f 0%,#f39a4d 25%,#e9875a 35%,#c9c94a 52%,#8fe05a 65%,#6fe0c0 74%,#5fd6f0 82%,#d9e45a 100%);
+  --glow-duration:7s;
+  position:relative;width:100%;height:64px;direction:ltr;pointer-events:none;
+  animation:glowLineSweep var(--glow-duration) ease-in-out infinite alternate;
+}
+.glowLine>*{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%)}
+
+/* הקו הבסיסי - מעומעם */
+.glowLine__base{height:3px;border-radius:3px;background:var(--glow-gradient);opacity:.7;
+  box-shadow:0 0 6px rgba(255,220,120,.25)}
+/* זוהר רך לאורך כל הקו */
+.glowLine__haze{height:18px;background:var(--glow-gradient);filter:blur(14px);opacity:.18}
+
+/* החלק המואר סביב ההילה */
+.glowLine__lit,.glowLine__bloom{
+  -webkit-mask-image:radial-gradient(ellipse 22% 50% at var(--glow-x) 50%,#000 0%,rgba(0,0,0,.5) 40%,transparent 100%);
+          mask-image:radial-gradient(ellipse 22% 50% at var(--glow-x) 50%,#000 0%,rgba(0,0,0,.5) 40%,transparent 100%);
+}
+.glowLine__lit{height:3px;border-radius:3px;background:var(--glow-gradient);filter:brightness(1.6) saturate(1.2)}
+.glowLine__bloom{height:100%;background:var(--glow-gradient) center/100% 16px no-repeat;filter:blur(14px);opacity:.8}
+
+/* ההילה עצמה */
+.glowLine__orb{left:var(--glow-x);right:auto;width:0;height:0}
+.glowLine__orb::before{ /* פס אור אופקי */
+  content:'';position:absolute;left:-90px;top:-7px;width:180px;height:14px;border-radius:50%;
+  background:radial-gradient(ellipse at center,rgba(200,250,255,.85) 0%,rgba(120,220,255,.35) 35%,transparent 70%);
+  filter:blur(3px)}
+.glowLine__orb::after{ /* ליבה לבנה */
+  content:'';position:absolute;left:-7px;top:-7px;width:14px;height:14px;border-radius:50%;background:#fff;
+  box-shadow:0 0 6px 2px #fff,0 0 18px 6px rgba(150,235,255,.9),0 0 40px 14px rgba(90,200,240,.45)}
+
+@keyframes glowLineSweep{from{--glow-x:8%}to{--glow-x:92%}}
+@media (prefers-reduced-motion:reduce){.glowLine{animation:none;--glow-x:78%}}
