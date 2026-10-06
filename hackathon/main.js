@@ -175,7 +175,7 @@
     flares.forEach(function (f) { f.style.setProperty('--glow-x', x.toFixed(2) + '%'); });
     requestAnimationFrame(sweep);
   }
-  if (flares.length && !reduceMotion) requestAnimationFrame(sweep);
+  if (flares.length) requestAnimationFrame(sweep);
 
   /* ---------- Countdown ---------- */
   var cd = {};
