@@ -3,11 +3,15 @@
   'use strict';
 
   /**
-   * Where form submissions are sent (JSON POST).
-   * Plug in any form backend (Formspree, Make/Zapier webhook, Google Apps Script, Supabase function…).
-   * While empty, submissions are only logged to the console.
+   * Submissions go to the Supabase table `hackathon_applications`
+   * (see supabase/hackathon_applications.sql), using the same VITE_SUPABASE_* env as the main app.
+   * FORM_ENDPOINT, when set, overrides that with a plain JSON POST (Formspree, Make/Zapier webhook…).
    */
   var FORM_ENDPOINT = '';
+  var env = (import.meta && import.meta.env) || {};
+  var SUPABASE_URL = (env.VITE_SUPABASE_URL || '').replace(/\/+$/, '');
+  var SUPABASE_KEY = env.VITE_SUPABASE_ANON_KEY || '';
+  var COLUMNS = ['kind', 'track', 'name', 'phone', 'email', 'occupation'];
 
   var EVENT_START = new Date('2026-11-26T19:00:00+02:00');
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -199,6 +203,34 @@
     form.classList.add('is-sent');
   }
 
+  function deliver(data) {
+    if (FORM_ENDPOINT) {
+      return fetch(FORM_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(data)
+      }).then(function (r) { if (!r.ok) throw new Error(r.status); });
+    }
+    if (SUPABASE_URL && SUPABASE_KEY) {
+      var row = { details: {} };
+      Object.keys(data).forEach(function (k) {
+        if (k === 'submitted_at' || k === 'website') return;
+        if (COLUMNS.indexOf(k) > -1) row[k] = data[k]; else row.details[k] = data[k];
+      });
+      return fetch(SUPABASE_URL + '/rest/v1/hackathon_applications', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          apikey: SUPABASE_KEY,
+          Authorization: 'Bearer ' + SUPABASE_KEY,
+          Prefer: 'return=minimal'
+        },
+        body: JSON.stringify(row)
+      }).then(function (r) { if (!r.ok) throw new Error(r.status); });
+    }
+    return Promise.reject(new Error('No form backend configured (set VITE_SUPABASE_URL / VITE_SUPABASE_ANON_KEY or FORM_ENDPOINT)'));
+  }
+
   function submit(form) {
     form.addEventListener('input', function (e) { if (e.target.closest('.is-invalid')) mark(e.target, false); });
     form.addEventListener('submit', function (e) {
@@ -217,18 +249,15 @@
       btn.disabled = true;
       msg.textContent = 'שולח…';
 
-      var send = FORM_ENDPOINT
-        ? fetch(FORM_ENDPOINT, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-            body: JSON.stringify(data)
-          }).then(function (r) { if (!r.ok) throw new Error(r.status); })
-        : new Promise(function (res) { console.info('[AI Venture Night] form submission (no FORM_ENDPOINT set):', data); setTimeout(res, 500); });
+      // Honeypot: bots fill the hidden field, people don't — pretend success and drop it.
+      var trap = $('input[name="website"]', form);
+      var send = trap && trap.value ? Promise.resolve() : deliver(data);
 
       send.then(function () {
         msg.textContent = '';
         showDone(form);
-      }).catch(function () {
+      }).catch(function (err) {
+        console.error('[AI Venture Night] submit failed:', err);
         msg.textContent = 'משהו השתבש בשליחה. נסו שוב בעוד רגע.';
         msg.classList.add('is-error');
       }).then(function () { btn.disabled = false; });

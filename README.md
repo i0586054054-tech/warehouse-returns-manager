@@ -25,3 +25,11 @@
 
 ## אבטחה
 `.env` מוחרג מ-Git ולעולם לא צריך להעלות אותו ל-GitHub.
+
+## דף הנחיתה של AI Venture Night
+דף סטטי בתיקייה `hackathon/` (בפיתוח: `/hackathon/`, ונבנה יחד עם האפליקציה ל־`dist/hackathon/`).
+
+- הגשות המועמדות והשארת הפרטים נשמרות בטבלה `hackathon_applications` ב־Supabase, עם אותם `VITE_SUPABASE_URL` / `VITE_SUPABASE_ANON_KEY`.
+- להפעלה: הרץ פעם אחת ב־Supabase SQL Editor את `supabase/hackathon_applications.sql`. מבקרים יכולים רק להוסיף שורות; רק משתמשים מחוברים יכולים לקרוא אותן.
+- שדות ייחודיים לכל מסלול (ארגון, תיאור הבעיה, תחום, קישורים) נשמרים בעמודה `details`.
+- לחלופין אפשר להגדיר `FORM_ENDPOINT` בראש `hackathon/main.js` (Formspree, Make, Zapier וכו') והוא יקבל קדימות.
