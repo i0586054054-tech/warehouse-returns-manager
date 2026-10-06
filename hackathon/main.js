@@ -132,6 +132,17 @@
     });
   });
 
+  /* ---------- Card top line: draw from the entry point, retract to the exit point ---------- */
+  $$('.pick').forEach(function (card) {
+    function origin(e) {
+      var b = card.getBoundingClientRect();
+      var x = Math.min(b.width, Math.max(0, e.clientX - b.left));
+      card.style.setProperty('--ox', x.toFixed(1) + 'px');
+    }
+    card.addEventListener('pointerenter', origin);
+    card.addEventListener('pointerleave', origin);
+  });
+
   /* ---------- Pointer glow on track cards ---------- */
   if (!reduceMotion) {
     $$('.pick').forEach(function (card) {
