@@ -15,6 +15,26 @@
 
   var EVENT_START = new Date('2026-11-26T19:00:00+02:00');
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* After Effects-style Easy Ease as a JS timing function (stronger ~70% influence for long scrolls) */
+  function bezier(x1, y1, x2, y2) {
+    function a(p1, p2) { return 1 - 3 * p2 + 3 * p1; }
+    function b(p1, p2) { return 3 * p2 - 6 * p1; }
+    function c(p1) { return 3 * p1; }
+    function at(t, p1, p2) { return ((a(p1, p2) * t + b(p1, p2)) * t + c(p1)) * t; }
+    function slope(t, p1, p2) { return 3 * a(p1, p2) * t * t + 2 * b(p1, p2) * t + c(p1); }
+    return function (x) {
+      if (x <= 0 || x >= 1) return x <= 0 ? 0 : 1;
+      var t = x;
+      for (var i = 0; i < 8; i++) {
+        var d = slope(t, x1, x2);
+        if (Math.abs(d) < 1e-6) break;
+        t -= (at(t, x1, x2) - x) / d;
+      }
+      return at(t, y1, y2);
+    };
+  }
+  var easyEaseSoft = bezier(0.7, 0, 0.3, 1);
+
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
 
@@ -48,13 +68,22 @@
   var tlItems = $$('.tl', timeline);
   var tracks = $$('.track');
   var ticking = false;
+  var tlTarget = 0, tlCurrent = 0, tlRunning = false;
+  // The rail chases the scroll position with exponential smoothing, so it glides instead of stepping.
+  function tlFollow() {
+    tlCurrent += (tlTarget - tlCurrent) * (reduceMotion ? 1 : 0.08);
+    if (Math.abs(tlTarget - tlCurrent) < 0.0005) tlCurrent = tlTarget;
+    timeline.style.setProperty('--p', tlCurrent.toFixed(4));
+    if (tlCurrent !== tlTarget) requestAnimationFrame(tlFollow); else tlRunning = false;
+  }
   function onScroll() {
     var vh = window.innerHeight;
     nav.classList.toggle('is-scrolled', window.scrollY > 24);
 
     var r = timeline.getBoundingClientRect();
     var p = Math.min(1, Math.max(0, (vh * 0.75 - r.top) / (r.height || 1)));
-    timeline.style.setProperty('--p', p.toFixed(3));
+    tlTarget = p;
+    if (!tlRunning) { tlRunning = true; requestAnimationFrame(tlFollow); }
     tlItems.forEach(function (li) {
       li.classList.toggle('is-lit', li.getBoundingClientRect().top < vh * 0.75);
     });
@@ -71,13 +100,56 @@
   window.addEventListener('resize', onScroll);
   onScroll();
 
+  /* ---------- Anchor scrolling with Easy Ease ---------- */
+  var scrollAnim = null;
+  function easeScrollTo(y) {
+    var start = window.scrollY, dist = y - start;
+    if (reduceMotion || Math.abs(dist) < 2) { window.scrollTo(0, y); return; }
+    var dur = Math.min(1600, Math.max(700, Math.abs(dist) * 0.45));
+    var t0 = null;
+    if (scrollAnim) cancelAnimationFrame(scrollAnim);
+    function step(now) {
+      if (t0 === null) t0 = now;
+      var k = Math.min(1, (now - t0) / dur);
+      window.scrollTo(0, start + dist * easyEaseSoft(k));
+      scrollAnim = k < 1 ? requestAnimationFrame(step) : null;
+    }
+    scrollAnim = requestAnimationFrame(step);
+  }
+  // A wheel or touch from the visitor takes over immediately.
+  ['wheel', 'touchstart', 'keydown'].forEach(function (ev) {
+    window.addEventListener(ev, function () { if (scrollAnim) { cancelAnimationFrame(scrollAnim); scrollAnim = null; } }, { passive: true });
+  });
+  $$('a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var id = a.getAttribute('href').slice(1);
+      var target = id ? document.getElementById(id) : null;
+      if (!target && id !== 'top') return;
+      e.preventDefault();
+      var y = target ? target.getBoundingClientRect().top + window.scrollY - (parseFloat(getComputedStyle(target).scrollMarginTop) || 0) : 0;
+      easeScrollTo(Math.max(0, y));
+      if (history.replaceState) history.replaceState(null, '', '#' + id);
+    });
+  });
+
   /* ---------- Pointer glow on track cards ---------- */
   if (!reduceMotion) {
     $$('.pick').forEach(function (card) {
+      var tx = 0, ty = 0, cx = 0, cy = 0, running = false;
+      function follow() {
+        cx += (tx - cx) * 0.12; cy += (ty - cy) * 0.12;
+        card.style.setProperty('--mx', cx.toFixed(1) + 'px');
+        card.style.setProperty('--my', cy.toFixed(1) + 'px');
+        if (Math.abs(tx - cx) + Math.abs(ty - cy) > 0.5) requestAnimationFrame(follow); else running = false;
+      }
+      card.addEventListener('pointerenter', function (e) {
+        var b = card.getBoundingClientRect();
+        cx = tx = e.clientX - b.left; cy = ty = e.clientY - b.top;
+      });
       card.addEventListener('pointermove', function (e) {
         var b = card.getBoundingClientRect();
-        card.style.setProperty('--mx', (e.clientX - b.left) + 'px');
-        card.style.setProperty('--my', (e.clientY - b.top) + 'px');
+        tx = e.clientX - b.left; ty = e.clientY - b.top;
+        if (!running) { running = true; requestAnimationFrame(follow); }
       });
     });
   }
